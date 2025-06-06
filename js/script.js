@@ -1,4 +1,4 @@
-const items = [
+let items = [
   {
     name: "Banana",
     image: "./images/banana.jpg",
@@ -40,25 +40,30 @@ row.classList.add(
   "row-cols-lg-3",
   "row-cols-md-2",
   "row-cols-1",
-  "justify-content-between",
+  "justify-content-start",
   "g-5",
   "mb-4"
 );
 container.append(row);
 
-items.forEach((item, i) => {
-  let desc = item.description.replace("%count%", item.count);
-  let priorityColorClass;
+updateItemLayout();
 
-  if (item.priority < 2) {
-    priorityColorClass = "btn-success";
-  } else if (item.priority < 4) {
-    priorityColorClass = "btn-warning";
-  } else {
-    priorityColorClass = "btn-danger";
-  }
+function updateItemLayout() {
+  row.innerHTML = "";
 
-  row.innerHTML += `
+  items.forEach((item, i) => {
+    let desc = item.description.replace("%count%", item.count);
+    let priorityColorClass;
+
+    if (item.priority < 2) {
+      priorityColorClass = "btn-success";
+    } else if (item.priority < 4) {
+      priorityColorClass = "btn-warning";
+    } else {
+      priorityColorClass = "btn-danger";
+    }
+
+    row.innerHTML += `
     <div class="col">
       <div class="card mx-md-1 mx-5">
         <div class="card-img-container">
@@ -72,11 +77,22 @@ items.forEach((item, i) => {
           <li class="list-group-item">Priority level: <button type="button" class="btn ${priorityColorClass}">${item.priority}</button></li>
           <li class="list-group-item">Deadline: ${item.deadline}</li>
         </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+        <div class="card-body d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-danger delete-btn">Delete</button>
+          <button type="button" class="btn btn-success done-btn">Done</button>
         </div>
       </div>
     </div>
   `;
-});
+  });
+
+  let deleteBtns = document.querySelectorAll(".delete-btn");
+
+  deleteBtns.forEach((btn, i) => {
+    btn.addEventListener("click", () => {
+      items.splice(i, 1);
+      console.log(items);
+      updateItemLayout();
+    });
+  });
+}
