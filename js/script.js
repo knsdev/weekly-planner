@@ -28,7 +28,7 @@ let items = [
   },
 ];
 
-let container = document.getElementsByClassName("container")[0];
+let container = document.getElementById("main-content-container");
 
 container.innerHTML += `
   <div class="d-flex justify-content-between my-3">
