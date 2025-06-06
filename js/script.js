@@ -48,20 +48,22 @@ container.append(row);
 
 updateItemLayout();
 
+function getPriorityColorClass(priority) {
+  if (priority < 2) {
+    return "btn-success";
+  } else if (priority < 4) {
+    return "btn-warning";
+  } else {
+    return "btn-danger";
+  }
+}
+
 function updateItemLayout() {
   row.innerHTML = "";
 
   items.forEach((item, i) => {
     let desc = item.description.replace("%count%", item.count);
-    let priorityColorClass;
-
-    if (item.priority < 2) {
-      priorityColorClass = "btn-success";
-    } else if (item.priority < 4) {
-      priorityColorClass = "btn-warning";
-    } else {
-      priorityColorClass = "btn-danger";
-    }
+    let priorityColorClass = getPriorityColorClass(item.priority);
 
     row.innerHTML += `
     <div class="col">
@@ -74,7 +76,7 @@ function updateItemLayout() {
           <p class="card-text">${desc}</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Priority level: <button type="button" class="btn ${priorityColorClass}">${item.priority}</button></li>
+          <li class="list-group-item">Priority level: <button type="button" class="btn increase-priority-btn ${priorityColorClass}">${item.priority}</button></li>
           <li class="list-group-item">Deadline: ${item.deadline}</li>
         </ul>
         <div class="card-body d-flex justify-content-end gap-2">
@@ -87,12 +89,34 @@ function updateItemLayout() {
   });
 
   let deleteBtns = document.querySelectorAll(".delete-btn");
+  let doneBtns = document.querySelectorAll(".done-btn");
+  let increasePriorityBtns = document.querySelectorAll(
+    ".increase-priority-btn"
+  );
 
   deleteBtns.forEach((btn, i) => {
     btn.addEventListener("click", () => {
       items.splice(i, 1);
-      console.log(items);
       updateItemLayout();
+    });
+  });
+
+  doneBtns.forEach((btn, i) => {
+    btn.addEventListener("click", () => {
+      updateItemLayout();
+    });
+  });
+
+  increasePriorityBtns.forEach((btn, i) => {
+    btn.addEventListener("click", () => {
+      if (items[i].priority < 5) {
+        items[i].priority++;
+        btn.innerHTML = items[i].priority;
+
+        btn.classList.remove("btn-success", "btn-warning", "btn-danger");
+        let colorClass = getPriorityColorClass(items[i].priority);
+        btn.classList.add(colorClass);
+      }
     });
   });
 }
