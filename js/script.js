@@ -30,7 +30,7 @@ let container = document.getElementsByClassName("container")[0];
 container.innerHTML += `
   <div class="d-flex justify-content-between my-3">
     <h2 class="ms-1">Weekly Tasks</h2>
-    <button type="button" class="btn">Sort by priority: <i class="bi bi-sort-up"></i></button>
+    <button type="button" id="sort-btn" class="btn">Sort by priority: <i class="bi bi-sort-up"></i></button>
   </div>
 `;
 
@@ -68,6 +68,13 @@ function updateItemLayout() {
     row.innerHTML += `
     <div class="col">
       <div class="card mx-md-1 mx-5">
+        <div class="d-flex justify-content-between ms-3 mt-2">
+          <button type="button" class="btn btn-info text-white">Task</button>
+          <div>
+            <button type="button" class="btn"><i class="bi bi-bookmark"></i></button>
+            <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+          </div>
+        </div>
         <div class="card-img-container">
           <img src="${item.image}" class="card-img-top" alt="${item.name}">
         </div>
@@ -76,12 +83,12 @@ function updateItemLayout() {
           <p class="card-text">${desc}</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Priority level: <button type="button" class="btn increase-priority-btn ${priorityColorClass}">${item.priority}</button></li>
-          <li class="list-group-item">Deadline: ${item.deadline}</li>
+          <li class="list-group-item"><i class="bi bi-exclamation-triangle-fill"></i> Priority level: <button type="button" class="btn increase-priority-btn ${priorityColorClass}">${item.priority}</button></li>
+          <li class="list-group-item"><i class="bi bi-calendar2-week"></i> Deadline: ${item.deadline}</li>
         </ul>
         <div class="card-body d-flex justify-content-end gap-2">
-          <button type="button" class="btn btn-danger delete-btn">Delete</button>
-          <button type="button" class="btn btn-success done-btn">Done</button>
+          <button type="button" class="btn btn-danger delete-btn"><i class="bi bi-trash-fill"></i> Delete</button>
+          <button type="button" class="btn btn-success done-btn"><i class="bi bi-check-circle"></i> Done</button>
         </div>
       </div>
     </div>
@@ -120,3 +127,19 @@ function updateItemLayout() {
     });
   });
 }
+
+let sortBtn = document.getElementById("sort-btn");
+
+sortBtn.addEventListener("click", () => {
+  items.sort((a, b) => {
+    if (a.priority > b.priority) {
+      return 1;
+    } else if (a.priority < b.priority) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+
+  updateItemLayout();
+});
