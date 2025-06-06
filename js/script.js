@@ -6,6 +6,7 @@ let items = [
     count: 4,
     priority: 0,
     deadline: "01.07.2025",
+    done: false,
   },
   {
     name: "Apple",
@@ -14,6 +15,7 @@ let items = [
     count: 2,
     priority: 0,
     deadline: "01.07.2025",
+    done: false,
   },
   {
     name: "Broccoli",
@@ -22,6 +24,7 @@ let items = [
     count: 1,
     priority: 0,
     deadline: "01.07.2025",
+    done: false,
   },
 ];
 
@@ -110,6 +113,10 @@ function updateItemLayout() {
 
   doneBtns.forEach((btn, i) => {
     btn.addEventListener("click", () => {
+      items[i].done = true;
+
+      // TODO: change card display to mark it as done
+
       updateItemLayout();
     });
   });
