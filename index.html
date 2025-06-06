@@ -10,16 +10,46 @@
       integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <header>
       <nav>
-        <!-- Navigation -->
+        <div class="p-2 bg-dark">
+          <div class="container-fuid">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+              <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li>
+                  <a href="./index.html" class="nav-link px-2 link-primary text-white logo"
+                    ><i class="bi bi-list-check me-2"></i> My Planner</a
+                  >
+                </li>
+                <li>
+                  <a href="./index.html" class="nav-link px-2 link-secondary">Home</a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link px-2 link-secondary">Tasks</a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link px-2 link-secondary">Settings</a>
+                </li>
+              </ul>
+              <div class="dropdown text-end">
+                <a href="#" class="d-block notification" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-bell-fill text-white"></i>
+                </a>
+                <ul class="dropdown-menu text-small">
+                  <li><a class="dropdown-item" href="#">1</a></li>
+                  <li><a class="dropdown-item" href="#">2</a></li>
+                  <li><a class="dropdown-item" href="#">3</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </nav>
     </header>
     <main>
