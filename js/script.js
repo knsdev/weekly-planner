@@ -28,8 +28,8 @@ const items = [
 let container = document.getElementsByClassName("container")[0];
 
 container.innerHTML += `
-  <div class="d-flex justify-content-between">
-    <h2>Weekly Tasks</h2>
+  <div class="d-flex justify-content-between my-3">
+    <h2 class="ms-1">Weekly Tasks</h2>
     <button type="button" class="btn">Sort by priority: <i class="bi bi-sort-up"></i></button>
   </div>
 `;
@@ -40,7 +40,9 @@ row.classList.add(
   "row-cols-lg-3",
   "row-cols-md-2",
   "row-cols-1",
-  "justify-content-between"
+  "justify-content-between",
+  "g-5",
+  "mb-4"
 );
 container.append(row);
 
@@ -57,7 +59,7 @@ items.forEach((item, i) => {
   }
 
   row.innerHTML += `
-    <div class="col p-xxl-5 p-xl-4 p-lg-3 p-md-3 p-4">
+    <div class="col">
       <div class="card mx-md-1 mx-5">
         <div class="card-img-container">
           <img src="${item.image}" class="card-img-top" alt="${item.name}">
