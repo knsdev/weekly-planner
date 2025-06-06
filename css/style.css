@@ -61,3 +61,25 @@
 .logo:active {
   color: white !important;
 }
+
+.hero-image {
+  width: 100%;
+  height: 18rem;
+  object-fit: cover;
+}
+
+.hero-container {
+  position: relative;
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.75rem;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+}

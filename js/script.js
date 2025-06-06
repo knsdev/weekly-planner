@@ -32,21 +32,13 @@ let container = document.getElementsByClassName("container")[0];
 
 container.innerHTML += `
   <div class="d-flex justify-content-between my-3">
-    <h2 class="ms-1">Weekly Tasks</h2>
+    <h3 class="ms-1">Weekly Tasks</h3>
     <button type="button" id="sort-btn" class="btn">Sort by priority: <i class="bi bi-sort-up"></i></button>
   </div>
 `;
 
 let row = document.createElement("div");
-row.classList.add(
-  "row",
-  "row-cols-lg-3",
-  "row-cols-md-2",
-  "row-cols-1",
-  "justify-content-start",
-  "g-5",
-  "mb-4"
-);
+row.classList.add("row", "row-cols-lg-3", "row-cols-md-2", "row-cols-1", "justify-content-start", "g-5", "mb-4");
 container.append(row);
 
 updateItemLayout();
@@ -100,9 +92,7 @@ function updateItemLayout() {
 
   let deleteBtns = document.querySelectorAll(".delete-btn");
   let doneBtns = document.querySelectorAll(".done-btn");
-  let increasePriorityBtns = document.querySelectorAll(
-    ".increase-priority-btn"
-  );
+  let increasePriorityBtns = document.querySelectorAll(".increase-priority-btn");
 
   deleteBtns.forEach((btn, i) => {
     btn.addEventListener("click", () => {
