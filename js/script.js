@@ -188,8 +188,10 @@ function updateItemLayout() {
 
   doneBtns.forEach((btn, i) => {
     btn.addEventListener("click", () => {
-      items[i].done = true;
-      taskStates[i].classList.add("task-state-done");
+      if (!items[i].done) {
+        items[i].done = true;
+        taskStates[i].classList.add("task-state-done");
+      }
     });
   });
 
