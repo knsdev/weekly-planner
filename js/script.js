@@ -149,8 +149,13 @@ function updateItemLayout() {
             <p class="card-text">${desc}</p>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><i class="bi bi-exclamation-triangle-fill"></i> Priority level: <button type="button" class="btn increase-priority-btn ${priorityColorClass}">${item.priority}</button></li>
-            <li class="list-group-item"><i class="bi bi-calendar2-week"></i> Deadline: ${item.deadline}</li>
+            <li class="list-group-item">
+              <i class="bi bi-exclamation-triangle-fill"></i> Priority level:
+              <button type="button" class="btn increase-priority-btn ${priorityColorClass}">${item.priority}</button>
+            </li>
+            <li class="list-group-item">
+              <i class="bi bi-calendar2-week"></i> Deadline: ${item.deadline}
+            </li>
           </ul>
           <div class="card-body d-flex justify-content-end gap-2">
             <button type="button" class="btn btn-danger delete-btn"><i class="bi bi-trash-fill"></i> Delete</button>
