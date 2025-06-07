@@ -1,5 +1,12 @@
-.container {
-  /* border: 1px solid black; */
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  height: 100vh;
+}
+
+main {
+  flex-grow: 1;
 }
 
 .card {
@@ -9,8 +16,6 @@
 
   .card-body {
     margin: 0 1rem;
-    /* border: 1px solid black;
-    border-radius: 0.5rem; */
 
     .card-title {
       text-align: center;
@@ -31,13 +36,11 @@
       object-fit: cover;
       border: 1px solid grey;
       border-radius: 0.5rem;
-      /* padding: 0.25rem; */
     }
   }
 }
 
 .notification {
-  /* border: 1px solid white; */
   font-size: 1.25rem;
   margin-right: 3.5rem;
 }
