@@ -28,7 +28,7 @@ let items = [
   },
 ];
 
-const SortingOrderTypes = Object.freeze({
+const SortingOrderType = Object.freeze({
   Ascending: 0,
   Descending: 1,
 });
@@ -46,7 +46,7 @@ const sortingFunctions = [
   },
 ];
 
-let sortingOrder = SortingOrderTypes.Ascending;
+let sortingOrder = SortingOrderType.Ascending;
 
 let container = document.getElementById("main-content-container");
 container.innerHTML += `
@@ -76,54 +76,41 @@ function updateItemLayout() {
 
     row.innerHTML += `
     <div class="col">
-      <div class="card mx-md-1 mx-5">
-        <div class="d-flex justify-content-between ms-3 mt-2">
-          <button type="button" class="btn btn-info text-white">Task</button>
-          <div>
-            <button type="button" class="btn"><i class="bi bi-bookmark"></i></button>
-            <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+        <div class="card mx-md-1 mx-5 task">
+          <div class="d-flex justify-content-between ms-3 mt-2">
+            <button type="button" class="btn btn-info text-white">Task</button>
+            <div>
+              <button type="button" class="btn"><i class="bi bi-bookmark"></i></button>
+              <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+            </div>
+          </div>
+          <div class="card-img-container">
+            <img src="${item.image}" class="card-img-top" alt="${item.name}">
+          </div>
+          <div class="task-state">
+            <img src="./images/check-mark.png" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">${item.name}</h5>
+            <p class="card-text">${desc}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="bi bi-exclamation-triangle-fill"></i> Priority level: <button type="button" class="btn increase-priority-btn ${priorityColorClass}">${item.priority}</button></li>
+            <li class="list-group-item"><i class="bi bi-calendar2-week"></i> Deadline: ${item.deadline}</li>
+          </ul>
+          <div class="card-body d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-danger delete-btn"><i class="bi bi-trash-fill"></i> Delete</button>
+            <button type="button" class="btn btn-success done-btn"><i class="bi bi-check-circle"></i> Done</button>
           </div>
         </div>
-        <div class="card-img-container">
-          <img src="${item.image}" class="card-img-top" alt="${item.name}">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">${item.name}</h5>
-          <p class="card-text">${desc}</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><i class="bi bi-exclamation-triangle-fill"></i> Priority level: <button type="button" class="btn increase-priority-btn ${priorityColorClass}">${item.priority}</button></li>
-          <li class="list-group-item"><i class="bi bi-calendar2-week"></i> Deadline: ${item.deadline}</li>
-        </ul>
-        <div class="card-body d-flex justify-content-end gap-2">
-          <button type="button" class="btn btn-danger delete-btn"><i class="bi bi-trash-fill"></i> Delete</button>
-          <button type="button" class="btn btn-success done-btn"><i class="bi bi-check-circle"></i> Done</button>
-        </div>
-      </div>
     </div>
   `;
   });
 
+  let increasePriorityBtns = document.querySelectorAll(".increase-priority-btn");
   let deleteBtns = document.querySelectorAll(".delete-btn");
   let doneBtns = document.querySelectorAll(".done-btn");
-  let increasePriorityBtns = document.querySelectorAll(".increase-priority-btn");
-
-  deleteBtns.forEach((btn, i) => {
-    btn.addEventListener("click", () => {
-      items.splice(i, 1);
-      updateItemLayout();
-    });
-  });
-
-  doneBtns.forEach((btn, i) => {
-    btn.addEventListener("click", () => {
-      items[i].done = true;
-
-      // TODO: change card display to mark it as done
-
-      updateItemLayout();
-    });
-  });
+  let taskStates = document.getElementsByClassName("task-state");
 
   increasePriorityBtns.forEach((btn, i) => {
     btn.addEventListener("click", () => {
@@ -137,6 +124,26 @@ function updateItemLayout() {
       }
     });
   });
+
+  deleteBtns.forEach((btn, i) => {
+    btn.addEventListener("click", () => {
+      items.splice(i, 1);
+      updateItemLayout();
+    });
+  });
+
+  doneBtns.forEach((btn, i) => {
+    btn.addEventListener("click", () => {
+      items[i].done = true;
+      taskStates[i].classList.add("task-state-done");
+    });
+  });
+
+  for (let i = 0; i < taskStates.length; i++) {
+    if (items[i].done) {
+      taskStates[i].classList.add("task-state-done");
+    }
+  }
 }
 
 function getPriorityColorClass(priority) {
@@ -150,10 +157,10 @@ function getPriorityColorClass(priority) {
 }
 
 function onSortButtonClicked() {
-  if (sortingOrder === SortingOrderTypes.Ascending) {
-    sortingOrder = SortingOrderTypes.Descending;
+  if (sortingOrder === SortingOrderType.Ascending) {
+    sortingOrder = SortingOrderType.Descending;
   } else {
-    sortingOrder = SortingOrderTypes.Ascending;
+    sortingOrder = SortingOrderType.Ascending;
   }
 
   sortItems();
@@ -169,5 +176,5 @@ function updateSortingOrderIcon() {
   let sortBtn = document.getElementById("sort-btn");
   let iconElement = sortBtn.getElementsByClassName("bi")[0];
   iconElement.classList.remove("bi-sort-up", "bi-sort-down");
-  iconElement.classList.add(sortingOrder === SortingOrderTypes.Ascending ? "bi-sort-up" : "bi-sort-down");
+  iconElement.classList.add(sortingOrder === SortingOrderType.Ascending ? "bi-sort-up" : "bi-sort-down");
 }
