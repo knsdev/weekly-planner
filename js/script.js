@@ -28,8 +28,27 @@ let items = [
   },
 ];
 
-let container = document.getElementById("main-content-container");
+const SortingOrderTypes = Object.freeze({
+  Ascending: 0,
+  Descending: 1,
+});
 
+const sortingFunctions = [
+  function (a, b) {
+    if (a.priority > b.priority) return 1;
+    else if (a.priority < b.priority) return -1;
+    else return 0;
+  },
+  function (a, b) {
+    if (a.priority > b.priority) return -1;
+    else if (a.priority < b.priority) return 1;
+    else return 0;
+  },
+];
+
+let sortingOrder = SortingOrderTypes.Ascending;
+
+let container = document.getElementById("main-content-container");
 container.innerHTML += `
   <div class="d-flex justify-content-between my-3">
     <h3 class="ms-1">Weekly Tasks</h3>
@@ -42,16 +61,11 @@ row.classList.add("row", "row-cols-lg-3", "row-cols-md-2", "row-cols-1", "justif
 container.append(row);
 
 updateItemLayout();
+updateSortingOrderIcon();
+sortItems();
 
-function getPriorityColorClass(priority) {
-  if (priority < 2) {
-    return "btn-success";
-  } else if (priority < 4) {
-    return "btn-warning";
-  } else {
-    return "btn-danger";
-  }
-}
+let sortBtn = document.getElementById("sort-btn");
+sortBtn.addEventListener("click", onSortButtonClicked);
 
 function updateItemLayout() {
   row.innerHTML = "";
@@ -125,18 +139,35 @@ function updateItemLayout() {
   });
 }
 
-let sortBtn = document.getElementById("sort-btn");
+function getPriorityColorClass(priority) {
+  if (priority < 2) {
+    return "btn-success";
+  } else if (priority < 4) {
+    return "btn-warning";
+  } else {
+    return "btn-danger";
+  }
+}
 
-sortBtn.addEventListener("click", () => {
-  items.sort((a, b) => {
-    if (a.priority > b.priority) {
-      return 1;
-    } else if (a.priority < b.priority) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
+function onSortButtonClicked() {
+  if (sortingOrder === SortingOrderTypes.Ascending) {
+    sortingOrder = SortingOrderTypes.Descending;
+  } else {
+    sortingOrder = SortingOrderTypes.Ascending;
+  }
 
+  sortItems();
+  updateSortingOrderIcon();
   updateItemLayout();
-});
+}
+
+function sortItems() {
+  items.sort(sortingFunctions[sortingOrder]);
+}
+
+function updateSortingOrderIcon() {
+  let sortBtn = document.getElementById("sort-btn");
+  let iconElement = sortBtn.getElementsByClassName("bi")[0];
+  iconElement.classList.remove("bi-sort-up", "bi-sort-down");
+  iconElement.classList.add(sortingOrder === SortingOrderTypes.Ascending ? "bi-sort-up" : "bi-sort-down");
+}
